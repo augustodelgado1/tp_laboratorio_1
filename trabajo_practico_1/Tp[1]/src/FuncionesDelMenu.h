@@ -53,7 +53,3 @@ void  CargaForzadaDeDatos(float,float,float);
 
 #endif /* FUNCIONESDELMENU_H_ */
 
-/*
- * Augusto Delgado
- * Div B
- */
