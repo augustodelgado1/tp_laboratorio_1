@@ -11,7 +11,7 @@ int main(void) {
 
 	    initPassengers(listaDePasajeros, MAX_PASSANGERS);
 
-	    //InitThePassangerList(listaDePasajeros, MAX_PASSANGERS);
+	    InitThePassangerList(listaDePasajeros, MAX_PASSANGERS);
 
 		do{
 		    opcion = menu();

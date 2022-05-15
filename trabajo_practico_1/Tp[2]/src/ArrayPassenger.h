@@ -39,7 +39,7 @@ int initPassengers(Passenger *list, int len);
 /// @fn int Passenger_estado(Passenger array[], int size);
 /// @brief recorre la lista de pasajeros y retorna si encontro una posicion del array en ocupado (1)
 ///
-/// @param Passenger[]
+/// @param Passenger[] la lista de pasajeros
 /// @param int la longitud del array
 /// @return (-1) si no la encotro , (1) si la encotro
 int Passengers_Status(Passenger[], int size);
@@ -58,14 +58,6 @@ int Passengers_SearchFree(Passenger[], int size);
 /// @param Passenger[] la lista de pasajeros
 /// @param int la longitud del array
 void CalculateTotalPassages(Passenger listaDePasajeros[], int size);
-
-/// @fn int CargarListaDePasajeros(Passenger[], int)
-/// @brief Permite ingresar datos
-///
-/// @param Passenger[]  la lista de pasajeros
-/// @param int la longitud del array
-/// @return -1 si no encontro espacio , sino retorna el indice
-int CargarListaDePasajeros(Passenger listaDePasajeros[], int size);
 
 //ALTA
 
@@ -124,7 +116,7 @@ int Modify(Passenger array[], int size);
 /// @brief Eliminar un Pasajero por Id (colocar el indicador isEmpty en 1)
 /// @param Passenger[] la lista de pasajeros
 /// @param int la longitud del array
-///param id int
+///param id int el id que quiere eliminar
 ///return int Retorna (-1) si Error [Longitud no válida o puntero NULL o si no puede encontrar un pasajero] - (0) si está bien
 int removePassenger(Passenger* list, int len, int id);
 
