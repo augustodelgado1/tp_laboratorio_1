@@ -51,12 +51,11 @@ int isFloat(char*);
 
 
 /// @fn int MyGets(char[], char[], int)
-/// @brief
+/// @brief Permite ingresar un string y valida que no se pase del tamaño del sting
 ///
-/// @param mensaje
-/// @param string
-/// @param size
-/// @return
+/// @param char[] donde se va a guardar el lo que se ingreso
+/// @param int el tamaño del sting
+/// @return int (-1) si no se pudo ingresar el string , de caso contrario retorna (0)
 int MyGets(char string[],int size);
 
 

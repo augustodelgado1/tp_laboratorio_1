@@ -11,28 +11,23 @@
 
 #include "Input.h"
 
-/// @fn int menu()
-/// @brief Muesta las opciones del menu principal , pide que elija una opcion y retorna cual eligio
+/// @fn int menu(int*, char[], char[], int, int)
+/// @brief Muestra un menu
 ///
-/// @return int la opcion ingresada
-int menu();
-
-/// @fn int menuDeModificacion()
-/// @brief Muesta las opciones del menu de modificaciones , pide que elija una opcion y retorna cual eligio
-///
-/// @return int la opcion ingresada
-int menuDeModificacion();
+/// @param int* Donde se va a guarda la opcion ingresada
+/// @param char[] mensajeDeBienvenida
+/// @param char[]
+/// @param int el minimo de opciones que va tener el menu
+/// @param int el maximo de opciones que va tener el menu
+/// @return si se ingreso la opcion correctamente
+int menu(int* opcion,char mensajeDeBienvenida[],char mensaje[],int minimo,int maximo);
 
 /// @fn void ConvertidorDeMayusculas(char*)
-/// @brief recorre la cadena y si encuntra un espacio el siguiente caracter lo convierte en mayuscula
+/// @brief Mustra un mensaje con una cabecera
 ///
-/// @param char[] el string con letras
-void ConvertidorDeMayusculas(char* );
-
-/// @fn void ImprimirResultados()
-/// @brief Imprime los resultados del menu indicando que es cada resultado
-/// @param char[] el mensaje indicando que es cada resultado
-void ImprimirResultados(char[]);
+/// @param char[] el Mensaje que indica que se va a mostrar
+/// @param char[] el mensaje indicando los datos
+void ImprimirCabecera(char cabecera[],char mensaje[]);
 
 
 

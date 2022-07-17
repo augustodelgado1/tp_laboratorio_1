@@ -25,15 +25,11 @@ int menu(int* opcion,char mensajeDeBienvenida[],char mensaje[],int minimo,int ma
 
 
 void ImprimirCabecera(char cabecera[],char mensaje[]){
-	printf("------- %10s  ------",cabecera);
+	printf("\n\t\t------- %10s ---------\n",cabecera);
 	printf("\n======================================================================================\n");
     printf("%s",mensaje);
 	printf("\n======================================================================================\n");
 }
-
-
-
-
 
 /*
  * Augusto Delgado

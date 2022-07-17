@@ -1,66 +1,74 @@
 #include "Numericas.h"
 
-int CalculateTotalPassengers(Passenger listaDePasjeros[], int size){
+int ContadorPasajeros(Passenger* list, int len){
     int contador;
+
     contador = 0;
 
-    for(int i=0; i<size; i++)
-   	{
-   	    if(listaDePasjeros[i].isEmpty == 1){
-   	    	contador++;
-   	    }
-   	}
+    for (int i = 0; i < len; i++) {
+
+        if(list[i].isEmpty){
+
+            contador++;
+        }
+    }
 
     return contador;
 
 }
 
-int CalculateTotal(Passenger listaDePasjeros[], int size){
-    float suma;
-    suma = 0;
+float Suma(Passenger* list, int len){
+    float acumulador;
 
-    for(int i=0;i<size;i++){
-    	if(listaDePasjeros[i].isEmpty == 1){
-    	suma += listaDePasjeros[i].price;
-    	}
+    acumulador = 0;
+
+    for (int i = 0; i < len; i++) {
+
+        if(list[i].isEmpty){
+
+            acumulador += list[i].price;
+
+        }
+    }
+
+    return acumulador;
+
+}
+
+float CalcualarPromedio(float primerNumero ,int segundoNumero){
+    float promedio;
+
+    promedio = 0;
+
+    if(segundoNumero != 0){
+
+       promedio = (float) primerNumero / segundoNumero;
 
     }
 
-    return suma;
-
+    return promedio;
 }
 
-float CalculateAverage(float primerNumero,float segundoNumero){
-	float promedio;
+int BucarMayor(Passenger* list, int len,float promedio){
+    int contador;
 
-	promedio = 0;
+    contador = 0;
 
-	if(segundoNumero != 0){
-	promedio = primerNumero / segundoNumero;
-	}
+    if(len > 0)
+    {
+        for (int i = 0; i < len; i++) {
 
-	return promedio;
-}
-
-int LookingOlder(Passenger listaDePasjeros[], int size,float promedio){
-	int flag;
-	int cantidadDePrecios;
-
-    flag = 0;
-    cantidadDePrecios = 0;
-
-    for(int i=0;i<size;i++){
-        if(listaDePasjeros[i].isEmpty == 1 && listaDePasjeros[i].price > promedio)
+            if(list[i].isEmpty == 1 && list[i].price > promedio)
             {
-                cantidadDePrecios++;
-        	    flag = 1;
-            }
 
+                contador++;
+
+            }
+        }
     }
 
-    printf("\n\nla cantidad De Pasajeros que superan el precio promedio son %d\n\n ",cantidadDePrecios);
+    return contador;
 
-    return flag;
 }
 
 
