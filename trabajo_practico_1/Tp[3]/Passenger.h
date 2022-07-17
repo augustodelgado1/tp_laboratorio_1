@@ -7,7 +7,7 @@
 #define PASSENGER_H_
 
 #define MAX_NOMBRE 50
-#define MAX_TIPO_DE_PASAJERO 15
+#define MAX_TIPO_DE_PASAJERO 20
 #define MAX_CODIGO_DE_VUELO 12
 
 typedef struct

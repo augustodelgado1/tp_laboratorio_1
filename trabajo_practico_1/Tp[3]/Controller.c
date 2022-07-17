@@ -392,6 +392,7 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 int controller_removePassenger(LinkedList* pArrayListPassenger)
 {
 	int id;
+	int idMaximo;
 	int index;
 	int estado;
 	char respuesta;
@@ -419,7 +420,9 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 
 				switch(respuesta){
 				case 's':
-					if(id >= idMaximo("data.csv")){
+					controller_ObtenerUltimoId("idmaximo.csv",&idMaximo);
+
+					if(id >= idMaximo){
 						controller_IdMaxFile("idmaximo.csv", id);
 					}
 

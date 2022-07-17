@@ -505,7 +505,7 @@ void PassengerPrintOne(Passenger* unPasajero){
 
 	if((!Passenger_Verificar_Gets(unPasajero,&id,nombre ,apellido,&precio,codigoVuelo,statusFlight,tipoPasajero))){
 
-    printf("%-4d %10s %5s %2.2f %-20s %-20s %-20s \n",
+    printf("%-4d %10s %5s %2.2f %-10s %-10s %-10s \n",
 																		id,
 																		nombre,
 																		apellido,

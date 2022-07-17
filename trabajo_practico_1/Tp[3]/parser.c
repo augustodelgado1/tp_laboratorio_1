@@ -15,7 +15,7 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 	  char statusFlight[1000];
 	  int estado;
 	  int falsaLectura;
-	  int i;
+
 	  Passenger* UnPasajero = NULL;
 
 	  estado = -1;
@@ -25,7 +25,7 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 	falsaLectura = fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",
 			  id,nombre,apellido,precio,tipoPasajero,codigoVuelo,statusFlight);
 
-	i = 0;
+
 
 	  do{
 
@@ -47,10 +47,10 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 			break;
 		  }
 
-		  i++;
 
-		}while(i<10);
-//!feof(pFile)
+
+		}while(!feof(pFile));
+//
 	  }
 
 	  return estado;
