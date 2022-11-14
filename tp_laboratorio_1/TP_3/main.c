@@ -86,7 +86,7 @@ int main()
 							switch(indexDeJugador)
 							{
 							case -2:
-								printf("Se cancelo la modificacion");
+								printf("No se realizaron cambios");
 								break;
 							case -1:
 								printf("Se produjo un error al intentar realizar la modificacion");
@@ -182,7 +182,7 @@ int main()
 						break;
 
 					case 9:
-						if(banderaBinaria == 1 || controller_cargarJugadoresDesdeBinario("jugadores.bn", listaDeJugadoresFilrada) == ERROR
+						if(banderaBinaria == 0 || controller_cargarJugadoresDesdeBinario("jugadores.bn", listaDeJugadoresFilrada) == ERROR
 						|| controller_MostrarListaDeJugadores(listaDeJugadoresFilrada, listaDeSelecciones) == ERROR
 						|| ll_clear(listaDeJugadoresFilrada) == ERROR)
 						{
@@ -206,7 +206,7 @@ int main()
 
 					case 11:
 							if((banderaDeCambios == -1 && ValidarChar(&respuesta,"¿Esta seguro que desea salir del programa sin guardar los cambios?  (s o n): ", "Ingrese una opcion valida (s o n): ", 's', 'n', 2) == ERROR)
-							|| (banderaDeCambios == 0 && ValidarChar(&respuesta,"¿Esta seguro que desea salir del programa?  (s o n): ", "Ingrese una opcion valida (s o n): ", 's', 'n', 2) == ERROR))
+							|| (banderaDeCambios == 0  && ValidarChar(&respuesta,"¿Esta seguro que desea salir del programa?  (s o n): ", "Ingrese una opcion valida (s o n): ", 's', 'n', 2) == ERROR))
 							{
 								printf("\n\n\t\t\tError -- No se ingreso una opcion valida -- Error");
 							}

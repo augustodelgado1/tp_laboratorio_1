@@ -163,8 +163,9 @@ int controller_editarJugador(LinkedList* pArrayListJugador)
 	char posicion[MAX_POSICION];
 	char nacionalidad[MAX_NACIONALIDAD];
 	int idSeleccion;
+	int cantidadDeCambios;
 	retorno = ERROR;
-
+	cantidadDeCambios = 0;
 	if(pArrayListJugador != NULL && GetNumero(&idDeJugador, "Ingrese el id de jugador que desea Modificar:  ", "Error ingrese un id valido: ", 1, 10000000, 5) != ERROR &&
 	(index = controller_BuscarIdDeJugador(pArrayListJugador,idDeJugador)) != ERROR && (unJugador = (Jugador*) ll_get(pArrayListJugador, index)) != NULL
 	&& jug_GetUnJugador(unJugador,&idDeJugador, nombreCompleto,&edad, posicion, nacionalidad,&idSeleccion) != ERROR)
@@ -198,9 +199,9 @@ int controller_editarJugador(LinkedList* pArrayListJugador)
 									break;
 
 								case 5:
-									if(ValidarChar(&respuesta,"¿Esta seguro que desea volver al menu principal? (s o n):  ","Ingrese una opcion valida (s o n): ",'s' , 'n',2) == ERROR)
+									if(ValidarChar(&respuesta,"¿Esta seguro que desea volver al menu principal? (s o n):  ","Ingrese una opcion valida (s o n): ",'s' , 'n',2) != ERROR && cantidadDeCambios == 0)
 									{
-										printf("\n\n\t\t\tError -- No se ingreso una opcion valida -- Error");
+										retorno = -2;
 									}
 									break;
 								}
@@ -208,6 +209,7 @@ int controller_editarJugador(LinkedList* pArrayListJugador)
 							if(retorno >= 0 && opcion != 5 && jug_SetUnJugador(unJugador, idDeJugador, nombreCompleto, edad, posicion, nacionalidad, idSeleccion) != ERROR)
 							{
 								printf("Se modifico exitosamente!!!!!!\n");
+								cantidadDeCambios++;
 								retorno = index;
 							}else{
 
@@ -441,13 +443,6 @@ int controller_ordenarListas(LinkedList* pArrayListJugador,LinkedList* pArrayLis
 	return estado;
 }
 
-/** \brief Guarda los datos de los jugadores en el archivo jugadores.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListSeleccion LinkedList*
- * \return int
- *
- */
 int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJugador)
 {
 	FILE* pArchivo = NULL;
@@ -538,13 +533,6 @@ int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSe
     return estado;
 }
 
-/** \brief Modificar datos de empleado
- *
- * \param path char*
- * \param pArrayListSeleccion LinkedList*
- * \return int
- *
- */
 int controller_editarSeleccion(LinkedList* pArrayListSeleccion)
 {
 		int index;

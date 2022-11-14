@@ -36,8 +36,8 @@ Jugador* jug_new();
 /// @return un jugador con los datos cargados o NULL si no se pudieron cargar los datos
 Jugador* jug_newParametros(char* idStr,char* nombreCompletoStr,char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSelccionStr);
 
-/// @fn int jug_delete(Jugador*)
-/// @brief libera los datos de un jugador y el jugador, verificando que el jugador sea distinto de NULL
+/// @fn void jug_delete(Jugador*)
+/// @brief libera los datos de un jugador , verificando que el jugador sea distinto de NULL
 ///
 /// @param Jugador* un puntero al Jugador
 void jug_delete(Jugador* unJugador);
@@ -193,7 +193,21 @@ int jug_PedirUnJugador(Jugador* unJugador,int id);
 /// @param Jugador* un puntero al jugador
 /// @return int [-1] si hubo error en los parametros , [1] si se pudo realizar cargar
 int jug_MostrarUnJugador(Jugador* this);
+
+/// @fn int jug_PedirPosicion(char[], int)
+/// @brief Permite igresar una pocision y la guarda dentro de la cadena pasada por parametro
+///
+/// @param char* donde se va a guardar
+/// @param int el tamanio de la cadena
+/// @return  int [1] si se ingreso correctamente , [-1] si hubo error al igresar el dato
 int  jug_PedirPosicion(char posicion[],int size);
+
+/// @fn int  jug_PedirNacionalidad(char nacionalidad[],int size);
+/// @brief Permite igresar una Nacionalidad y la guarda dentro de la cadena pasada por parametro
+///
+/// @param char* donde se va a guardar
+/// @param int el tamanio de la cadena
+/// @return  int [1] si se ingreso correctamente , [-1] si hubo error al igresar el dato
 int  jug_PedirNacionalidad(char nacionalidad[],int size);
 
 

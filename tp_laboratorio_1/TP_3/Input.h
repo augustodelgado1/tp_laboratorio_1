@@ -6,7 +6,16 @@
 
 #include "Validations.h"
 
-
+/// @fn int GetEnteroCorto(short*, char[], char[], int, int, int)
+/// @brief Permite ingresar un numero entero corto y validando un rango minimo y maximo
+///
+/// @param short* Donde se va a guardar el numero ingresado
+/// @param char[] el mensaje que indica que debe ingresar
+/// @param char[] el mensaje que indica que debe ingresar un numero valido dentro del rango pedido
+/// @param int  es el minimo de rango
+/// @param int  es el maximo de rango
+/// @param int la cantidad de reitentos
+/// @return [0] si se pudo ingresar correctamente , sino [-1]
 int GetEnteroCorto(short* numero,char mensaje[],char mensajeError[] ,int minimo,int maximo,int reitentos);
 /// @fn float PedirFlotanteYValidar(char[], char[], int)
 /// @brief Permite ingresar un numero flotante y valida el  minimo de rango

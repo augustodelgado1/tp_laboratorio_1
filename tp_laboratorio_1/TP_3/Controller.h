@@ -28,7 +28,7 @@ int controller_agregarJugador(LinkedList* pArrayListJugador);
 /// el dato que desee y validando se hayan ingresado los datos correctamente
 ///
 /// @param  LinkedList* la lista de jugadores
-/// @return [-1] si hubo error , [el Indice] del jugador que se edito
+/// @return [-2] sino se realizo ningun cambio,[-1] si hubo error , [el Indice] del jugador que se edito
 int controller_editarJugador(LinkedList* pArrayListJugador);
 
 /// @fn int controller_BuscarIdDeJugador(LinkedList*, int)
@@ -36,7 +36,7 @@ int controller_editarJugador(LinkedList* pArrayListJugador);
 ///
 /// @param LinkedList* la lista de jugadores
 /// @param int el id a buscar
-/// @return  [-1] si no lo encontro, sino el [Indice] del jugador que contiene ese id
+/// @return [-1] si no lo encontro, sino el [Indice] del jugador que contiene ese id
 int controller_BuscarIdDeJugador(LinkedList* pArrayListJugador,int idABuscar);
 
 /// @fn int controller_removerJugador(LinkedList*)
@@ -93,9 +93,9 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
 int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion);
 
 /// @fn int controller_editarSeleccion(LinkedList*)
-/// @brief
+/// @brief Edita el campo convocados de la estuctura seleccion
 ///
-/// @param pArrayListSeleccion
+/// @param LinkedList*  la lista de selecciones
 /// @return [-1] si hubo error en los parametros, [1] si esta ok
 int controller_editarSeleccion(LinkedList* pArrayListSeleccion);
 
@@ -109,7 +109,7 @@ int controller_editarSeleccion(LinkedList* pArrayListSeleccion);
 int controller_CantidadJugadoresConvocadosPorSeleccion(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador);
 
 /// @fn int controller_CantdadJugadoresConcadosDeUnaSeleccion(LinkedList*, int)
-/// @brief reccore la lista de jugadores y cuenta cuantos estan coiciden con el id de seleccion pasado por parametro
+/// @brief reccore la lista de jugadores y cuenta cuantos jugadores coiciden con el id de seleccion pasado por parametro
 ///  y devuelve la cantidad
 ///
 /// @param  LinkedList* la lista de jugadores
@@ -149,26 +149,57 @@ int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion);
 int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSeleccion);
 
 /// @fn int controller_ConvocarJugador(LinkedList*, LinkedList*)
-/// @brief
+/// @brief Permite convocar un jugador validando que se igresaron correctamente los datos
 ///
-/// @param pArrayListSeleccion
-/// @param pArrayListJugador
-/// @return
+/// @param LinkedList* la lista de selecciones
+/// @param LinkedList* la lista de jugadores
+/// @return [-1] si hubo error en el ingreseo de datos,[0] si se cancelo la convocacion, [1] si esta ok
 int controller_ConvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador );
+
+/// @fn int controller_MenuDeConvocarJugador(LinkedList*, LinkedList*)
+/// @brief Muestra un menu donde le permite convocar o desconvocar un jugador de la lista
+///
+/// @param LinkedList* la lista de selecciones
+/// @param  LinkedList* la lista de jugadores
+/// @return [-1] si hubo error en los parametros, [1] si esta ok
 int controller_MenuDeConvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador );
+
+/// @fn int controller_CantidadDeJugadoresConvocados(LinkedList*, LinkedList*)
+/// @brief Cuenta la cantidad de jugadores convocados que hay en la lista y devuelve la cantidad
+///
+/// @param LinkedList* la lista de jugadores
+/// @param  LinkedList* la lista de selecciones
+/// @return [-1] si hubo error en los parametros, sino devuelve la cantidad de convocados que conto
 int controller_CantidadDeJugadoresConvocados(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
+
+/// @fn int controller_DesconvocarJugador(LinkedList*, LinkedList*)
+/// @brief Permite desconvocar a un jugador , validando que se ingrese un jugador que este convocado
+///
+/// @param LinkedList* la lista de selecciones
+/// @param LinkedList* la lista de jugadores
+/// @return [-1] si hubo error en el ingreseo de datos,[0] si se cancelo la convocacion, [1] si esta ok
 int controller_DesconvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador );
+
+/// @fn int controller_GetIdJugador(LinkedList*, char[], char[], int)
+/// @brief Permite ingresar un id validando que ese id pertenezca a la lista pasada por parametro
+///
+/// @param  LinkedList* la lista de jugadores
+/// @param char[] el mensaje que indica que debe ingresar
+/// @param char[] el mensaje que indica que debe ingresar un numero valido dentro del rango pedido
+/// @param int cantidad de reitentos
+/// @return [-1] si hubo error en el ingreseo de datos, sino el indice donde se encuentra el id
 int controller_GetIdJugador(LinkedList* pArrayListJugador,char mensaje[],char mensajeError[],int reitentos);
 
 /// @fn int controller_GetIdSeleccion(LinkedList*, char[], char[], int)
-/// @brief
+/// @brief Permite ingresar un id validando que ese id pertenezca a la lista pasada por parametro
 ///
-/// @param pArrayListSeleccion
-/// @param mensaje
-/// @param mensajeError
-/// @param reitentos
-/// @return
+/// @param  LinkedList* la lista de selecciones
+/// @param char[] el mensaje que indica que debe ingresar
+/// @param char[] el mensaje que indica que debe ingresar un numero valido dentro del rango pedido
+/// @param int cantidad de reitentos
+/// @return [-1] si hubo error en el ingreseo de datos, sino el indice donde se encuentra el id
 int controller_GetIdSeleccion(LinkedList* pArrayListSeleccion,char mensaje[],char mensajeError[],int reitentos);
+
 /// @fn int controller_ObtenerUltimoId(char*)
 /// @brief Lee un numero del archivo y lo retorna
 ///
@@ -183,11 +214,11 @@ int controller_ObtenerUltimoId(char* path);
 int controller_BuscarIdMaximo(char* path);
 
 /// @fn int controller_GuardarUltimoId(char*, int)
-/// @brief
+/// @brief Guarda el un archivo el id pasado por parametro
 ///
-/// @param path
-/// @param id
-/// @return
+/// @param char* el nombre del archivo donde se va a guardar el id
+/// @param int el id que se va a guardar
+/// @return [-1] si hubo error en los parametros ,[1] si esta ok
 int controller_GuardarUltimoId(char* path,int id);
 
 /// @fn int controller_listarConvocados(LinkedList*, LinkedList*)

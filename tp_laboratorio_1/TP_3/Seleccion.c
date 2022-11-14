@@ -43,22 +43,14 @@ int selec_GetUnaSeleccion(Seleccion* unaSeleccion,int* id,char* pais,char* confe
 	return estado;
 }
 
-int selec_delete(Seleccion* this){
-
-	int estado;
-	estado = ERROR;
+void selec_delete(Seleccion* this){
 
 		if(this != NULL)
 		{
 			free(this);
 			this = NULL;
-			estado = OK;
 		}
-
-		return estado;
 }
-
-
 
 int selec_getId(Seleccion* this,int* id)
 {
@@ -236,11 +228,11 @@ int selec_PedirConfederacion(char confederacion[],int size){
 			break;
 
 		case 4:
-			strcpy(confederacion,"CONCACAF");
+			strcpy(confederacion,"UEFA");
 			break;
 
 		case 5:
-			strcpy(confederacion,"AFC");
+			strcpy(confederacion,"CONCACAF");
 			break;
 		}
 
