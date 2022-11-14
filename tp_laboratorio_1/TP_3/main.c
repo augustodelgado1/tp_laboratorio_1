@@ -100,6 +100,7 @@ int main()
 								{
 									jug_MostrarUnJugador(unJugador);
 								}
+								banderaDeCambios = -1;
 								break;
 							}
 						}else{
@@ -131,10 +132,11 @@ int main()
 								{
 									jug_MostrarUnJugador(unJugador);
 								}
+								banderaDeCambios = -1;
 								break;
-								ll_clear(listaAuxiliar);
 							}
-					}
+							ll_clear(listaAuxiliar);
+						}
 
 							break;
 

@@ -790,14 +790,13 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
 int controller_ConvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador )
 {
 	int idSeleccion;
-	int estado;
 	int index;
 	int indexDeSeleccion;
 	char respuesta;
 	Jugador* unJugador = NULL;
 	Seleccion* unaSeleccion = NULL;
 
-		estado = ERROR;
+		index = ERROR;
 		if(pArrayListJugador != NULL &&  pArrayListSeleccion != NULL)
 		{
 			controller_listarJugadores(pArrayListJugador);
@@ -807,28 +806,28 @@ int controller_ConvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* pArr
 				&& controller_BuscarIdDeSeleccion(pArrayListSeleccion, idSeleccion) == ERROR && (indexDeSeleccion = controller_editarSeleccion(pArrayListSeleccion)) != ERROR
 				&& (unaSeleccion = (Seleccion*) ll_get(pArrayListSeleccion, indexDeSeleccion)) != NULL)
 				{
-					ImprimirCabecera("\n\n\t\t\t\t\t-- Jugador Seleccionado -- \n","ID   | Nombre 	                  | Edad       | Posicion             | Nacionalidad   		  | Seleccion \n","=", "-", 130);
+					ImprimirCabecera("\n\n\t\t\t\t-- Jugador Seleccionado -- \n","ID   | Nombre 	                  | Edad       | Posicion             | Nacionalidad   		  | Seleccion \n","=", "-", 130);
 					Nexo_MostrarJugadoresConSeleccion(unJugador, unaSeleccion);
 
-					estado = ValidarChar(&respuesta,"¿Esta seguro que desea convocar a este jugador a esta seleccion? (s o n): ","Ingrese una opcion valida (s o n): ",'s' , 'n',2);
+					ValidarChar(&respuesta,"¿Esta seguro que desea convocar a este jugador a esta seleccion? (s o n): ","Ingrese una opcion valida (s o n): ",'s' , 'n',2);
 
 						switch(respuesta)
 						{
 							case 's':
-							if(selec_getId(unaSeleccion,&idSeleccion) != ERROR && jug_setIdSeleccion(unJugador, idSeleccion) != ERROR)
+							if(selec_getId(unaSeleccion,&idSeleccion) == ERROR || jug_setIdSeleccion(unJugador, idSeleccion) == ERROR)
 							{
-								estado = OK;
+								index = -1;
 							}
 							break;
 
 							case 'n':
-							estado = 0;
+							index = -2;
 							break;
 						}
 				}
 		    }
 
-		return estado;
+		return index;
 }
 
 LinkedList*  controller_FiltraListaDeJugadores(LinkedList* pArrayListJugador,LinkedList* pArrayListSelecciones,char confederacionIngresada[])
@@ -888,7 +887,7 @@ int controller_MenuDeConvocarJugador(LinkedList* pArrayListSeleccion, LinkedList
 
 					if(cantidadDeJugadores >= controller_CantidadDeJugadoresConvocados(pArrayListJugador,pArrayListSeleccion))
 					{
-						if(controller_ConvocarJugador(pArrayListSeleccion,pArrayListJugador) == OK)
+						if(controller_ConvocarJugador(pArrayListSeleccion,pArrayListJugador) >= 0)
 						{
 							printf("Se convoco con exito al jugador");
 						}else{
@@ -909,11 +908,11 @@ int controller_MenuDeConvocarJugador(LinkedList* pArrayListSeleccion, LinkedList
 						printf("Se produjo un error al intentar desconvocar un jugador");
 						break;
 
-					case 0:
+					case -2:
 						printf("Se cancelo la desenvocacion");
 						break;
 
-					case 1:
+					default:
 						printf("Se desconvoco con exito el jugador");
 						break;
 					}
@@ -967,14 +966,13 @@ int controller_CantidadDeJugadoresConvocados(LinkedList* pArrayListJugador, Link
 
 int controller_DesconvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador )
 {
-	int estado;
 	int idSeleccion;
 	int indexDeJugador;
 	int indexDeSeleccion;
 	char respuesta;
 	Jugador* unJugador = NULL;
 	Seleccion* unaSeleccion = NULL;
-	estado = ERROR;
+	indexDeJugador = ERROR;
 
 	if(pArrayListSeleccion != NULL && pArrayListJugador != NULL && controller_listarConvocados(pArrayListJugador, pArrayListSeleccion) != ERROR)
 	{
@@ -990,21 +988,21 @@ int controller_DesconvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* p
 				switch(respuesta)
 				{
 					case 's':
-					if(jug_setIdSeleccion(unJugador,LIBRE) != ERROR)
+					if(jug_setIdSeleccion(unJugador,LIBRE) == ERROR)
 					{
-						estado = OK;
+						indexDeJugador = ERROR;
 					}
 					break;
 
 					case 'n':
-					estado = 0;
+					indexDeJugador = -2;
 					break;
 				}
 		}
 
 	}
 
-	return estado;
+	return indexDeJugador;
 }
 
 

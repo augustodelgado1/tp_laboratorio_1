@@ -153,7 +153,7 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
 ///
 /// @param LinkedList* la lista de selecciones
 /// @param LinkedList* la lista de jugadores
-/// @return [-1] si hubo error en el ingreseo de datos,[0] si se cancelo la convocacion, [1] si esta ok
+/// @return [-1] si hubo error en el ingreseo de datos,[-2] si se cancelo la convocacion, [indice] si esta ok
 int controller_ConvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador );
 
 /// @fn int controller_MenuDeConvocarJugador(LinkedList*, LinkedList*)
@@ -177,7 +177,7 @@ int controller_CantidadDeJugadoresConvocados(LinkedList* pArrayListJugador, Link
 ///
 /// @param LinkedList* la lista de selecciones
 /// @param LinkedList* la lista de jugadores
-/// @return [-1] si hubo error en el ingreseo de datos,[0] si se cancelo la convocacion, [1] si esta ok
+/// @return [-1] si hubo error en el ingreseo de datos,[-2] si se cancelo la convocacion, [indice] si esta ok
 int controller_DesconvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador );
 
 /// @fn int controller_GetIdJugador(LinkedList*, char[], char[], int)
