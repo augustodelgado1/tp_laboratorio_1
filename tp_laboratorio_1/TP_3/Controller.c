@@ -945,7 +945,7 @@ int controller_CantidadDeJugadoresConvocados(LinkedList* pArrayListJugador, Link
 
 	jugadoresConvocados = ERROR;
 
-	if(pArrayListJugador != NULL &&  pArrayListSeleccion != NULL && (sizeDeJugadores = ll_len(pArrayListJugador)) > 0)
+	if(pArrayListJugador != NULL &&  pArrayListSeleccion != NULL && (sizeDeJugadores = ll_len(pArrayListJugador)) >= 0)
 	{
 		jugadoresConvocados = 0;
 

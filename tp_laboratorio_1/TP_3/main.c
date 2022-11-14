@@ -14,15 +14,18 @@ int main()
 	LinkedList* listaDeSelecciones = ll_newLinkedList();
 	Seleccion* unaSeleccion = NULL;
 	Jugador* unJugador = NULL;
-    int banderaDeCambios;
     int banderaBinaria;
     int bandera;
     int id;
+    int cantidadJugadoresConvocados;
+    int cantidadDeConvocadosGuardados;
     int idSeleccion;
     int indexDeSeleccion;
     int retorno;
     int opcion;
     int indexDeJugador;
+    int cantidadJugadores;
+    int cantidadDeJugadoresGuardados;
     char respuesta;
     char confederacion[MAX_CONFEDERACION];
 
@@ -30,27 +33,30 @@ int main()
    	controller_GuardarUltimoId("Id_Jugadores_Maximo.txt", id);
    	banderaBinaria = 0;
    	bandera = 0;
-   	banderaDeCambios = 0;
+   	cantidadDeJugadoresGuardados = 0;
+   	cantidadDeConvocadosGuardados = 0;
 
     if(listaJugadores != NULL && listaDeSelecciones != NULL)
     {
 
 		do{
-																		menu("Menu Principal",
-																				  "\n[1].Cargar  Archivos CSV"
-																				  "\n[2].Alta de Jugador\n"
-																				  "[3].Modificar Jugador\n"
-																				  "[4].Baja de Jugador\n"
-																				  "[5].Listados\n"
-																				  "[6].Convocar jugadores\n"
-																				  "[7].Ordenamientos\n"
-																				  "[8].Generar un archivo binario\n"
-																				  "[9].Cargar Archivo binario\n"
-																				  "[10].Guardar Archivos CSV\n"
-																				  "[11].Salir");
+										menu("Menu Principal",
+											  "\n[1].Cargar  Archivos CSV"
+											  "\n[2].Alta de Jugador\n"
+											  "[3].Modificar Jugador\n"
+											  "[4].Baja de Jugador\n"
+											  "[5].Listados\n"
+											  "[6].Convocar jugadores\n"
+											  "[7].Ordenamientos\n"
+											  "[8].Generar un archivo binario\n"
+											  "[9].Cargar Archivo binario\n"
+											  "[10].Guardar Archivos CSV\n"
+											  "[11].Salir");
 
 		   retorno = GetNumero(&opcion, "Ingrese una opcion: ","Ingrese Una opcion valida: ",1, 11, 2);
 		   controller_CantidadJugadoresConvocadosPorSeleccion(listaDeSelecciones, listaJugadores);
+		   cantidadJugadoresConvocados = controller_CantidadDeJugadoresConvocados(listaJugadores, listaDeSelecciones);
+		   cantidadJugadores = ll_len(listaJugadores);
 		   if(retorno != ERROR)
 		   {
 				switch(opcion)
@@ -60,6 +66,8 @@ int main()
 						controller_cargarSeleccionesDesdeTexto("selecciones.csv", listaDeSelecciones) != ERROR)
 						{
 							bandera = 1;
+							cantidadDeJugadoresGuardados = ll_len(listaJugadores);
+							cantidadDeConvocadosGuardados = controller_CantidadDeJugadoresConvocados(listaJugadores, listaDeSelecciones);
 							printf("Los archivos se cargaron correctamente");
 						}else{
 							printf("Se produjo un error al intentar cargar los archivos");
@@ -72,7 +80,6 @@ int main()
 						if(controller_agregarJugador(listaJugadores) == OK)
 						{
 							printf("\nSe agreago un jugador a la lista con exitoo!!!");
-							banderaDeCambios = -1;
 						}else{
 							printf("\nSe produjo un error al intentar realizar el Alta");
 						}
@@ -100,7 +107,6 @@ int main()
 								{
 									jug_MostrarUnJugador(unJugador);
 								}
-								banderaDeCambios = -1;
 								break;
 							}
 						}else{
@@ -132,7 +138,6 @@ int main()
 								{
 									jug_MostrarUnJugador(unJugador);
 								}
-								banderaDeCambios = -1;
 								break;
 							}
 							ll_clear(listaAuxiliar);
@@ -198,7 +203,8 @@ int main()
 							if(controller_guardarJugadoresModoTexto("jugadores.csv", listaJugadores) != ERROR
 							&& controller_guardarSeleccionesModoTexto("selecciones.csv", listaDeSelecciones) != ERROR)
 							{
-								banderaDeCambios = 0;
+								cantidadDeConvocadosGuardados = controller_CantidadDeJugadoresConvocados(listaJugadores, listaDeSelecciones);
+								cantidadDeJugadoresGuardados = ll_len(listaJugadores);
 								printf("Los cambios realizados se guradaron correctamente");
 							}else{
 								printf("Se produjo un error al intentar guradar los cambios realizados");
@@ -207,8 +213,8 @@ int main()
 						  break;
 
 					case 11:
-							if((banderaDeCambios == -1 && ValidarChar(&respuesta,"¿Esta seguro que desea salir del programa sin guardar los cambios?  (s o n): ", "Ingrese una opcion valida (s o n): ", 's', 'n', 2) == ERROR)
-							|| (banderaDeCambios == 0  && ValidarChar(&respuesta,"¿Esta seguro que desea salir del programa?  (s o n): ", "Ingrese una opcion valida (s o n): ", 's', 'n', 2) == ERROR))
+							if(((cantidadJugadores != cantidadDeJugadoresGuardados || cantidadJugadoresConvocados != cantidadDeConvocadosGuardados) && ValidarChar(&respuesta,"¿Esta seguro que desea salir del programa sin guardar los cambios?  (s o n): ", "Ingrese una opcion valida (s o n): ", 's', 'n', 2) == ERROR)
+							|| (cantidadJugadores == cantidadDeJugadoresGuardados && cantidadJugadoresConvocados == cantidadDeConvocadosGuardados && ValidarChar(&respuesta,"¿Esta seguro que desea salir del programa?  (s o n): ", "Ingrese una opcion valida (s o n): ", 's', 'n', 2) == ERROR))
 							{
 								printf("\n\n\t\t\tError -- No se ingreso una opcion valida -- Error");
 							}
