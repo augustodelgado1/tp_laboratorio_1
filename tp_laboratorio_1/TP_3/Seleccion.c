@@ -96,7 +96,7 @@ int selec_setConvocados(Seleccion* this,int convocados)
 	int estado;
     estado = ERROR;
 
-    if(this != NULL && convocados >= 0)
+    if(this != NULL && convocados >= 0 && convocados <= 22)
     {
     	this->convocados = convocados;
     	estado = OK;

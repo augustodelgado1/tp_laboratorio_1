@@ -7,20 +7,16 @@
 int main()
 {
 	setbuf(stdout,NULL);
-
 	LinkedList* listaJugadores = ll_newLinkedList();
 	LinkedList* listaAuxiliar = ll_newLinkedList();
 	LinkedList* listaDeJugadoresFilrada = ll_newLinkedList();
 	LinkedList* listaDeSelecciones = ll_newLinkedList();
-	Seleccion* unaSeleccion = NULL;
 	Jugador* unJugador = NULL;
     int banderaBinaria;
     int bandera;
     int id;
     int cantidadJugadoresConvocados;
     int cantidadDeConvocadosGuardados;
-    int idSeleccion;
-    int indexDeSeleccion;
     int retorno;
     int opcion;
     int indexDeJugador;
@@ -40,29 +36,31 @@ int main()
     {
 
 		do{
-										menu("Menu Principal",
-											  "\n[1].Cargar  Archivos CSV"
-											  "\n[2].Alta de Jugador\n"
-											  "[3].Modificar Jugador\n"
-											  "[4].Baja de Jugador\n"
-											  "[5].Listados\n"
-											  "[6].Convocar jugadores\n"
-											  "[7].Ordenamientos\n"
-											  "[8].Generar un archivo binario\n"
-											  "[9].Cargar Archivo binario\n"
-											  "[10].Guardar Archivos CSV\n"
-											  "[11].Salir");
+																			menu("Menu Principal",
+																				  "\n[1].Cargar  Archivos CSV"
+																				  "\n[2].Alta de Jugador\n"
+																				  "[3].Modificar Jugador\n"
+																				  "[4].Baja de Jugador\n"
+																				  "[5].Listados\n"
+																				  "[6].Convocar jugadores\n"
+																				  "[7].Ordenamientos\n"
+																				  "[8].Generar un archivo binario\n"
+																				  "[9].Cargar Archivo binario\n"
+																				  "[10].Guardar Archivos CSV\n"
+																				  "[11].Salir");
 
 		   retorno = GetNumero(&opcion, "Ingrese una opcion: ","Ingrese Una opcion valida: ",1, 11, 2);
 		   controller_CantidadJugadoresConvocadosPorSeleccion(listaDeSelecciones, listaJugadores);
 		   cantidadJugadoresConvocados = controller_CantidadDeJugadoresConvocados(listaJugadores, listaDeSelecciones);
 		   cantidadJugadores = ll_len(listaJugadores);
+
 		   if(retorno != ERROR)
 		   {
 				switch(opcion)
 				{
 				  case 1:
-						if(bandera == 0 && controller_cargarJugadoresDesdeTexto("jugadores.csv", listaJugadores) != ERROR  &&
+
+						if(bandera == 0 && controller_cargarJugadoresDesdeTexto( "jugadores.csv", listaJugadores) != ERROR  &&
 						controller_cargarSeleccionesDesdeTexto("selecciones.csv", listaDeSelecciones) != ERROR)
 						{
 							bandera = 1;
@@ -101,9 +99,7 @@ int main()
 							default:
 								ImprimirCabecera("\t\t\t\t\t-- Jugador Actualizado -- \n","ID   | Nombre 	                  | Edad       | Posicion             | Nacionalidad   		  | Seleccion \n","=", "-", 130);
 								if((unJugador = (Jugador*) ll_get(listaJugadores, indexDeJugador)) != NULL &&
-								(jug_getSIdSeleccion(unJugador,&idSeleccion) == ERROR || (indexDeSeleccion = controller_BuscarIdDeSeleccion(listaDeSelecciones, idSeleccion)) == ERROR
-								|| (unaSeleccion = (Seleccion*) ll_get(listaDeSelecciones, indexDeSeleccion)) == NULL ||
-								Nexo_MostrarJugadoresConSeleccion(unJugador, unaSeleccion)  == ERROR))
+								controller_MostrarSeleccionDeJugador(unJugador,listaDeSelecciones) == ERROR)
 								{
 									jug_MostrarUnJugador(unJugador);
 								}
@@ -132,15 +128,15 @@ int main()
 							default:
 								ImprimirCabecera("\n\n\t\t\t\t\t-- Jugador Borrado -- \n","ID   | Nombre 	                  | Edad       | Posicion             | Nacionalidad   		  | Seleccion \n","=", "-", 130);
 								if((unJugador = (Jugador*) ll_pop(listaJugadores, indexDeJugador)) != NULL &&
-							     (jug_getSIdSeleccion(unJugador,&idSeleccion) == ERROR || (indexDeSeleccion = controller_BuscarIdDeSeleccion(listaDeSelecciones, idSeleccion)) == ERROR
-								|| (unaSeleccion = (Seleccion*) ll_get(listaDeSelecciones, indexDeSeleccion)) == NULL ||
-								Nexo_MostrarJugadoresConSeleccion(unJugador, unaSeleccion)  == ERROR))
+								controller_MostrarSeleccionDeJugador(unJugador,listaDeSelecciones) == ERROR)
 								{
 									jug_MostrarUnJugador(unJugador);
 								}
 								break;
 							}
 							ll_clear(listaAuxiliar);
+						}else{
+							printf("Debe Ingresar al menos un jugador para podera acceder a la baja");
 						}
 
 							break;
@@ -157,7 +153,7 @@ int main()
 							if((retorno = ll_isEmpty(listaJugadores)) == 0 && (retorno = ll_isEmpty(listaDeSelecciones)) == 0
 								&& controller_MenuDeConvocarJugador(listaDeSelecciones,listaJugadores ) == ERROR)
 							{
-								printf("Error -- Se produjo un error en el menu de listados -- Error");
+								printf("Error -- Se produjo un error en el menu de convocados -- Error");
 							}
 							break;
 
@@ -170,9 +166,10 @@ int main()
 							break;
 
 					case 8:
-						if((retorno = ll_isEmpty(listaJugadores)) == 0 && (retorno = ll_isEmpty(listaDeSelecciones)) == 0
+						if(ll_isEmpty(listaJugadores) == 0 && ll_isEmpty(listaDeSelecciones) == 0
 				        && selec_PedirConfederacion(confederacion,MAX_CONFEDERACION) != ERROR
-						&& (listaDeJugadoresFilrada = controller_FiltraListaDeJugadores(listaJugadores, listaDeSelecciones,confederacion)) != NULL && ll_isEmpty(listaDeJugadoresFilrada) == 0)
+						&& (listaDeJugadoresFilrada = controller_FiltraListaDeJugadores(listaJugadores, listaDeSelecciones,confederacion)) != NULL
+						&& ll_isEmpty(listaDeJugadoresFilrada) == 0)
 						{
 							if(controller_guardarJugadoresModoBinario("jugadores.bn", listaDeJugadoresFilrada) != ERROR
 							&&  ll_clear(listaDeJugadoresFilrada) != ERROR)
@@ -189,11 +186,17 @@ int main()
 						break;
 
 					case 9:
-						if(banderaBinaria == 0 || controller_cargarJugadoresDesdeBinario("jugadores.bn", listaDeJugadoresFilrada) == ERROR
-						|| controller_MostrarListaDeJugadores(listaDeJugadoresFilrada, listaDeSelecciones) == ERROR
-						|| ll_clear(listaDeJugadoresFilrada) == ERROR)
+
+						if(banderaBinaria == 1 )
 						{
-							printf("Error -- Se produjo un error al intentar cargar el arhivo binario -- Error");
+							if(controller_cargarJugadoresDesdeBinario("jugadores.bn", listaDeJugadoresFilrada) == ERROR
+							|| controller_MostrarListaDeJugadores(listaDeJugadoresFilrada, listaDeSelecciones) == ERROR
+							|| ll_clear(listaDeJugadoresFilrada) == ERROR)
+							{
+								printf("Se produjo un error al intentar cargar el arhivo binario");
+							}
+						}else{
+							printf("Debe Cargar el achivo binario para Imprimirlo (OPCION 8)");
 						}
 						 break;
 

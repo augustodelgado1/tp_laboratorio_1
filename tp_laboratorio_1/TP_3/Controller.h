@@ -1,4 +1,5 @@
 
+#include "Nexo.h"
 /// @fn int controller_cargarJugadoresDesdeTexto(char*, LinkedList*)
 /// @brief Carga los datos de los jugadores desde el archivo generado en modo texto
 ///
@@ -92,11 +93,11 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
 /// @return [-1] si hubo error en los parametros, [1] si esta ok
 int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion);
 
-/// @fn int controller_editarSeleccion(LinkedList*)
-/// @brief Edita el campo convocados de la estuctura seleccion
+/// @fn int controller_editarSeleccion(LinkedList* pArrayListSeleccion);
+/// @brief Permite ingresar un id validando que ese id pertenezca a la lista pasada por parametro
 ///
-/// @param LinkedList*  la lista de selecciones
-/// @return [-1] si hubo error en los parametros, [1] si esta ok
+/// @param  LinkedList* la lista de selecciones
+/// @return [-1] si hubo error en el ingreseo de datos, sino el [indice] donde se encuentra el id
 int controller_editarSeleccion(LinkedList* pArrayListSeleccion);
 
 /// @fn int controller_CantidadJugadoresConvocadosPorSeleccion(LinkedList*, LinkedList*)
@@ -190,16 +191,6 @@ int controller_DesconvocarJugador(LinkedList* pArrayListSeleccion, LinkedList* p
 /// @return [-1] si hubo error en el ingreseo de datos, sino el indice donde se encuentra el id
 int controller_GetIdJugador(LinkedList* pArrayListJugador,char mensaje[],char mensajeError[],int reitentos);
 
-/// @fn int controller_GetIdSeleccion(LinkedList*, char[], char[], int)
-/// @brief Permite ingresar un id validando que ese id pertenezca a la lista pasada por parametro
-///
-/// @param  LinkedList* la lista de selecciones
-/// @param char[] el mensaje que indica que debe ingresar
-/// @param char[] el mensaje que indica que debe ingresar un numero valido dentro del rango pedido
-/// @param int cantidad de reitentos
-/// @return [-1] si hubo error en el ingreseo de datos, sino el indice donde se encuentra el id
-int controller_GetIdSeleccion(LinkedList* pArrayListSeleccion,char mensaje[],char mensajeError[],int reitentos);
-
 /// @fn int controller_ObtenerUltimoId(char*)
 /// @brief Lee un numero del archivo y lo retorna
 ///
@@ -246,6 +237,15 @@ int controller_MostrarListaDeJugadores( LinkedList* pArrayListJugador, LinkedLis
 /// @param int el id a buscar
 /// @return [-1] si no encontro el id o el indice al que pertenece ese id
 int controller_BuscarIdDeSeleccion(LinkedList* pArraySeleccion,int idABuscar);
+
+
+/// @fn int controller_MostrarSeleccionDeJugador(Jugador*, LinkedList*)
+/// @brief Muestra un jugador con su seleccion
+///
+/// @param Jugador* el jugador a listar con su seleccion
+/// @param LinkedList* el puntero a la lista de selecciones
+/// @return [-1] si no pudo mostrar el jugador , [1] si pudo mostrar el jugador
+int controller_MostrarSeleccionDeJugador(Jugador* unJugador, LinkedList* pArrayListSeleccion);
 
 /** @brief Ordena la listas de forma ascendente o decendente , mostrando un menu donde
  * al usuario se la da opcion de ordenar por distintos criterios
